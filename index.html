@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>Angular Todo | Trevor Elwell</title>
+		<!-- Include Angular -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+		<!-- Include Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	</head>
+
+	<body class="col-sm-10 col-sm-offset-1" ng-app="TodoApp">
+
+		<section id="main-wrapper" class="row" ng-controller="TodoCtrl">
+
+			<!-- BEGIN New Todo Form -->
+			<div id="new-todo" class="col-sm-12">
+
+				<!-- Title, this will probably go away soon -->
+				<h2>Angular Todo List:</h2>
+
+				<form class="form-inline">
+
+					<div class="form-group">
+						<input type="text" class="form-control" name="text" id="text" placeholder="Todo text" ng-model="text">
+					</div>
+
+					<div class="form-group">
+						<input type="date" class="form-control" name="date" id="date" placeholder="Todo due date" ng-model="dueDate">
+					</div>
+
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Create Todo" ng-click="createTodo()">
+					</div>
+
+				</form>
+			</div>
+			<!-- END New Todo Form -->
+			
+			<!-- BEGIN Filters -->
+			<div id="todo-filters" class="col-sm-12">
+				<!-- TODO: Wire these up! -->
+				<button class="btn btn-info pull-left" ng-click="affectCompleted()">{{ showCompleted == true ? 'Hide Completed' : 'Show Completed'}}</button>
+				<button class="btn btn-warning pull-left" ng-click="clearCompleted()">Clear Completed</button>
+			</div>
+			<!-- END Filters -->
+
+			<!-- BEGIN Show Todos -->
+			<div id="todos" class="col-sm-12">
+				<table class="table table-bordered">
+
+					<thead>
+						<th>Todo:</th>
+						<th>Due Date:</th>
+						<th>Status:</th>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="item in items | filter: filterExpression">
+							<td>{{ item.text }}</td>
+							<td>{{ item.dueDate | date:'MMM d, yyyy'}}</td>
+							<td>{{item.completed}} <input type="checkbox" ng-model="item.completed" ng-checked="item.completed == true;"></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+			<!-- END Show Todos -->
+
+		</section>
+		<!-- END #Main-Wrapper -->
+
+	</body>
+
+	<!-- Include Custom Angular JS -->
+	<script src="js/app.js"></script>
+
+	<!-- Angular Controllers -->
+	<script src="js/controllers/TodoCtrl.js"></script>
+</html>
